@@ -1,0 +1,387 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For My Aishuu ❤️</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "Trebuchet MS", Arial, sans-serif;
+    color: #a51952;
+    background: linear-gradient(135deg, #ffe1ed, #fff0f5, #ffd1e2);
+    overflow-x: hidden;
+}
+
+.page {
+    min-height: 100vh;
+    display: none;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 35px 18px;
+    text-align: center;
+    overflow: hidden;
+}
+
+.page.active {
+    display: flex;
+    animation: fadeIn .7s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* First screen: a flood of sorry */
+
+.flood {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+.flood span {
+    position: absolute;
+    font-weight: bold;
+    color: rgba(255, 48, 112, .23);
+    white-space: nowrap;
+    animation: floatSorry 4s ease-in-out infinite alternate;
+}
+
+@keyframes floatSorry {
+    from { transform: rotate(-12deg) translateY(-12px); }
+    to { transform: rotate(12deg) translateY(18px); }
+}
+
+.card {
+    position: relative;
+    z-index: 2;
+    width: min(560px, 100%);
+    padding: 30px 22px;
+    background: rgba(255,255,255,.76);
+    border: 2px solid rgba(255, 123, 169, .45);
+    border-radius: 28px;
+    box-shadow: 0 12px 40px rgba(206, 62, 113, .15);
+    backdrop-filter: blur(5px);
+}
+
+h1 {
+    font-size: clamp(29px, 7vw, 44px);
+    margin: 10px 0 18px;
+}
+
+.message {
+    min-height: 110px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: clamp(23px, 5.5vw, 34px);
+    line-height: 1.5;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+}
+
+.subtitle {
+    font-size: 16px;
+    color: #b34b72;
+    line-height: 1.7;
+}
+
+button {
+    margin-top: 22px;
+    padding: 14px 30px;
+    border: none;
+    border-radius: 50px;
+    background: linear-gradient(135deg, #ff5592, #e72f76);
+    color: white;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 6px 18px rgba(220, 45, 108, .25);
+    transition: transform .2s, box-shadow .2s;
+}
+
+button:hover {
+    transform: translateY(-3px) scale(1.03);
+    box-shadow: 0 9px 24px rgba(220, 45, 108, .3);
+}
+
+button:active {
+    transform: scale(.97);
+}
+
+.cat {
+    font-size: clamp(75px, 18vw, 115px);
+    animation: bounce 1.5s infinite ease-in-out;
+    filter: drop-shadow(0 7px 7px rgba(180, 45, 90, .12));
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-4deg); }
+    50% { transform: translateY(-15px) rotate(4deg); }
+}
+
+/* Floating hearts and flowers */
+
+.floating {
+    position: fixed;
+    bottom: -50px;
+    z-index: 5;
+    pointer-events: none;
+    animation: rise linear forwards;
+}
+
+@keyframes rise {
+    from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 1;
+    }
+    to {
+        transform: translateY(-115vh) rotate(35deg);
+        opacity: 0;
+    }
+}
+
+/* Final letter */
+
+.letter {
+    text-align: left;
+    color: #743047;
+    font-size: 17px;
+    line-height: 2;
+    white-space: pre-line;
+    overflow-wrap: anywhere;
+}
+
+.letter h1 {
+    text-align: center;
+    color: #d83272;
+    font-size: 32px;
+}
+
+.signature {
+    text-align: right;
+    font-size: 20px;
+    font-weight: bold;
+    color: #d83272;
+    margin-top: 25px;
+}
+
+.page-count {
+    margin-top: 16px;
+    font-size: 13px;
+    color: #c06a8a;
+}
+
+@media (max-width: 480px) {
+    .card { padding: 25px 17px; }
+    .letter { font-size: 16px; line-height: 1.85; }
+}
+</style>
+</head>
+
+<body>
+
+<!-- PAGE 1: SORRY FLOOD -->
+<section class="page active" id="page1">
+    <div class="flood" id="sorryFlood"></div>
+
+    <div class="card">
+        <div style="font-size:60px;">🥺💗</div>
+        <h1>Aishuuuu ❤️</h1>
+        <p class="subtitle">
+            I have something to tell you, meri jaan...
+        </p>
+        <h1 style="color:#ff367f;">I'M SO SORRY</h1>
+        <p class="subtitle">
+            Please ek baar meri baat sun lo na 🥹
+        </p>
+        <button onclick="startApology()">Click Next 💌</button>
+    </div>
+</section>
+
+<!-- PAGE 2: ONE MESSAGE AT A TIME -->
+<section class="page" id="page2">
+    <div class="card">
+        <div class="cat">🐱🌸</div>
+        <div style="font-size:28px;">💗 🥺 💗</div>
+
+        <div class="message" id="message"></div>
+
+        <button id="nextButton" onclick="nextMessage()">
+            Next 💕
+        </button>
+
+        <div class="page-count" id="pageCount"></div>
+    </div>
+</section>
+
+<!-- PAGE 3: FINAL LETTER -->
+<section class="page" id="page3">
+    <div class="card">
+        <div style="text-align:center;font-size:65px;">
+            💌🌷🧸
+        </div>
+
+        <h1>Meri Aishuu Ke Liye ❤️</h1>
+
+        <div class="letter" id="letterText"></div>
+
+        <div class="signature">
+            I'm sorry, Aishuu ❤️🥺
+        </div>
+
+        <div style="text-align:center;">
+            <button onclick="celebrate()">A little hug? 🫂</button>
+            <p class="subtitle" id="hugText"></p>
+        </div>
+    </div>
+</section>
+
+<script>
+const messages = [
+    "aishuu i am so sorry ❤️🥺",
+    "i can't live without you 💗",
+    "i know i have made a huge mistake 😔",
+    "i'll not do it again na i promise 🥺",
+    "please yaar maaf krdo 💔",
+    "mai aapke bina ni reh paunga yaar 🥹",
+    "please yaar please aishuu please ❤️",
+    "ek last chance dedo please bas yeh aakhiri dedo 🙏🏻",
+    "mai aapko pura sudhar ke dikha dunga 🫶",
+    "please yaar ek last chance 🥺",
+    "mai aapko bht jyada pyaar krung yaar ❤️",
+    "aapki saari baat manunga 💗",
+    "joh aap bologe voh krunga, please yaar merse bht badi glti hogyi 😔",
+    "please yaaar mujhe maf krdo 🥹",
+    "aapke bina yaar meri puri life barbaad ho jyegi 💔",
+    "past me joh bhi hua usko bhul jao na 🥺",
+    "mai aapko is baar dil se bilkul kbhi nirash nahi krun ❤️",
+    "please yaar last time krdo maaf please na 🙏🏻",
+    "mai aapke hath pair sab jod rha hu 🥹",
+    "ek last chance dedo mai aapko dil se chahta hu yaar merko itni badi saza mat do ❤️"
+];
+
+let currentMessage = 0;
+
+const apologyLetter = `aishuu yaar merko pta hai yaar aap bht jyada gusse me ho, par mat ruso na yaar, apan hmesha sath rhenge na aapne kha tha,
+
+yaar saari meri hi glti thi mai man rha hu aur mai bhugat bhi rha hu pr aap yaar ase mujhe chod ke mat jao yaar. mai aapke bina bilkul bhi nahi reh sakta. mai sach me yaar sirf aapko hi chahta hu yaar.
+
+please merko maaf krdo please aishuu yaar mujhe maaf krdo. mai aapke hath jod rha hu pair pad rha hu. yeh last tym tha tb meri glti hui hogi. please na abse kabhi nahi hoga asa.
+
+please yaar sath aahjao na please yaar ❤️`;
+
+function showPage(id) {
+    document.querySelectorAll(".page").forEach(page => {
+        page.classList.remove("active");
+    });
+
+    document.getElementById(id).classList.add("active");
+    window.scrollTo({ top: 0, behavior: "smooth" });
+}
+
+function startApology() {
+    currentMessage = 0;
+    showPage("page2");
+    renderMessage();
+    burstHearts();
+}
+
+function renderMessage() {
+    const message = document.getElementById("message");
+
+    // Re-trigger the entrance animation for every new message.
+    message.style.animation = "none";
+    message.offsetHeight;
+    message.style.animation = "fadeIn .5s ease";
+
+    message.textContent = messages[currentMessage];
+
+    document.getElementById("pageCount").textContent =
+        (currentMessage + 1) + " / " + messages.length;
+
+    const button = document.getElementById("nextButton");
+
+    if (currentMessage === messages.length - 1) {
+        button.textContent = "Read My Letter 💌";
+    } else {
+        button.textContent = "Next 💕";
+    }
+}
+
+function nextMessage() {
+    if (currentMessage < messages.length - 1) {
+        currentMessage++;
+        renderMessage();
+        burstHearts();
+    } else {
+        document.getElementById("letterText").textContent = apologyLetter;
+        showPage("page3");
+        burstHearts();
+    }
+}
+
+function makeFloatingEmoji() {
+    const emojis = ["💗", "💕", "💖", "🌸", "🌷", "❤️", "✨"];
+    const item = document.createElement("div");
+
+    item.className = "floating";
+    item.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+
+    item.style.left = Math.random() * 100 + "vw";
+    item.style.fontSize = (18 + Math.random() * 23) + "px";
+    item.style.animationDuration = (4 + Math.random() * 5) + "s";
+
+    document.body.appendChild(item);
+
+    setTimeout(() => item.remove(), 9500);
+}
+
+function burstHearts() {
+    for (let i = 0; i < 16; i++) {
+        setTimeout(makeFloatingEmoji, i * 90);
+    }
+}
+
+// Fill the opening screen with lots of SORRY text.
+const flood = document.getElementById("sorryFlood");
+
+for (let i = 0; i < 85; i++) {
+    const word = document.createElement("span");
+
+    word.textContent = i % 3 === 0 ? "SORRYYYY 💗" : "SORRY";
+    word.style.left = Math.random() * 95 + "%";
+    word.style.top = Math.random() * 100 + "%";
+    word.style.fontSize = (15 + Math.random() * 24) + "px";
+    word.style.animationDelay = Math.random() * 3 + "s";
+
+    flood.appendChild(word);
+}
+
+// Gentle continuous floating hearts and flowers.
+setInterval(makeFloatingEmoji, 650);
+
+function celebrate() {
+    document.getElementById("hugText").textContent =
+        "Sending you the biggest virtual hug, Aishuu! 🫂❤️🌸";
+
+    for (let i = 0; i < 35; i++) {
+        setTimeout(makeFloatingEmoji, i * 70);
+    }
+}
+</script>
+
+</body>
+</html>
